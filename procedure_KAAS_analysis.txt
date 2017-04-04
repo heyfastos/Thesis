@@ -1,0 +1,63 @@
+This is a description of the procedure applied for functional analysis of taxon specific RNA reads extracted from metatranscriptomes. 
+Pipeline designed by Dan Miller, including all custom written scripts.
+
+1) Extract taxon specific reads using MEGAN5 (Huson et al., 2011) (Assuming you generated a MEGAN .rma file. see MEGAN manual for details)
+
+2) Perform similarity search against a protein database:
+run diamond (Buchfink et al., 2015) / blastX on sequences. 
+
+Assuming a diamond database was generated (see Diamond manual for details) - I used the following diamond command:
+diamond blastx -p 15 -d /data/Dan/NCBI_DB/nr/nr.dmnd -q $YOUR_QUERY_FILE -k 25 (max nr of hits) -f tab (12 columns tabular format) -o $YOUR_OUTPUT_FILENAME_dmnd.tab
+
+3) retrieve protein sequences of resulting hits: 
+Run “fetch_protSeq_w_refSeq_ID_v7.py” on the diamond output table – this will pick the best hit, and will only use it if: %ID and bitscore are both > 60, an alignment length is at least 30 nt. 
+The script will take weighted sequences into consideration: meant are "100% identity clusters" generated right after quality control to reduce disk space. 
+The header of each clustered sequence will include a "_weight|X" as sufix, with X representing the number of 100% identical sequences found in the original sequence file.
+The RefSeq / protein seq (nr) IDs of the chosen hits are used to call the protein sequence from the NCBI database using the “Entrez.efetch” function supplied in the biopython package.
+The returned sequences are matched to their respective RefSeq ID (or nr_ID - the one returned from the diamond search) and are returned in a weighted fasta format 
+in which each ID has the “_weights|xxx” ending where xxx are the summed number of weights of all sequences that were ponting to the respective protein ID.
+
+4)  Use protein sequences for KAAS search (Moriya et al., 2007). This is better than using “blast KOALA” because the blast koala search is limited to 5000 sequences for each run. KAAS is also limited, but its better:
+(the number of query sequences) * (the total number of sequences in selected organisms) < 135,000,000,000
+There is a button in the KAAS upload page called “Show the number of sequences in selected organism” (they added it to my request!!!)
+I was using the Single-directional Best Hit SBH method (instead of the BBH bidirectional method) because I was using large sets of tens of thousands of reads. 
+The genomes included in the database for all searches are specified in the bottom of this document.
+KAAS allignment results will be sent per mail. You will be directed to a page with multiple options for analysis.
+
+From the KAAS results page please download:
+    a)	KO list (this is a table that includes the header of all fasta queries (so – the nr or RefSeq ID including weights) and the KO assigned to it – if there is one. Note that a single KO is often assigned to several sequences (so – different protein sequences with different RefSeq IDs are encoding for homologues enzymes that are assigned to the same KO. The KO number actually represents a cluster of KEGG orthologs)
+    b)	Pathways list – all pathways found in the search procedure and the number of KOs assigned to each pathway. To get the list push the "Exec" bottom at the botton of the Color objects in KEGG Pathways section, than mark, copy and paste all content in a text file.
+    c)	Pathways list including all the KOs assigned to each pathway – this file includes all the information. This can be done by pushing the "show all objects" botton in the pathways page. 
+        This list not only tells you how many KOs are assigned to each pathway- it also tells you which KOs were exactly found in your search that are assigned to each pathway. Again – a single KO can be assigned to more than one pathway which makes the analysis very tricky!
+
+5) "Cluster" all KOs in the KAAS output:
+Run “Cluster_KOs.py [KO_list]” on the protein_ID \t KO table (the KO list downloaded in the previous step). 
+It will return a clustered list – if a KO is assigned to several RefSeq IDs, it will randomly pick one of them but sum up the weights assigned to all of them (This is a bit confusing and might be a bit misleading: the weights here are included in the RefSeq_ID but they are actually referring to the KO)
+The total number of summarized weights is given in the bottom of the output table . This represents the total number of reads that all KOs were assigned to in this procedure.
+
+6) Extract the weights information from the KO list and add it to the pathways information:
+Run “Extract_weights_for_KOs_v1 [clustered_KO_list] [pathways and assigned KOs list]”. 
+This step will return a tab delimited table with the following structure: 
+KO number \t Gene name \t product \t enzyme commission number (EC) \t ID (nr or refSeq) \t weight (all reads assigned to the KO)
+
+7) Group pathways and calculate weights for each pathway
+Run “group_KOs_in_pathways_v1.py [weighted_KO_table] [pathways_with_KOs_list]” where the weighted_KO_table is the file produced in step 6 and the pathways_with_KOs_list is the detailed pathways list (including KOs assigned to each pathway) downloaded from KAAS (step 4). \
+This script will return a table listing all kegg pathways found in your KAAS search, the KEGG nr of each pathway, the number of KOs assigned to it, and the total number of reads represented in these KOs. 
+NOTE! Each KO can appear in more than one pathway!  (it’s the usual caveat when analyzing pathways in sequencing data!). This means, that if you will sum up the total number of reads assigned to each pathway you will have more reads than used in your analysis (because many of them appear redundantly). 
+To know for sure if a pathway is represented in your data, or what enzymes from a pathway are there, you could go to the KAAS results page (which is available for only one week) and view the graphic representation of specific pathways in the results. It will provide graphics and KGML files that can later be visualized using KEGGscape (a cytoscape plugin).
+
+
+References:
+Buchfink, B., Xie, C., and Huson, D.H. (2015). Fast and sensitive protein alignment using DIAMOND. Nat. Methods 12, 59–60.
+Huson, D.H., Mitra, S., Ruscheweyh, H.-J., Weber, N., and Schuster, S.C. (2011). Integrative analysis of environmental sequences using MEGAN4. Genome Res. 21, 1552–1560.
+Moriya, Y., Itoh, M., Okuda, S., Yoshizawa, A.C., and Kanehisa, M. (2007). KAAS: an automatic genome annotation and pathway reconstruction server. Nucleic Acids Res. 35, W182-185.
+
+KAAS references used:
+prochlorococcus (nr of genes: 16,034): pmi, pmm, pmn, pmt, pmb, pme, pmf 
+Euryarchaeota: (nr og seqs in ref: 93,865): mmp, mae, mja, mok, mac, mbu, mmh, mev, mzh, mpy, mhz, mtp, mhu, mla, mem, mpi, mbn, mpl, mpd, mth, mst, msi, mel, mfv, fpl, nph, hje, nmg, nge, nou, mer, mig, mka, apo, tac, afu, mru, mvn, mvo, mmq
+SAR11: only available genome in the list - pub
+Thaumarchaeota: three genomes available: nmr, csy, nga
+synehcococcus: syw, syc, syf, syd, sye, syg, syr, syx, syp, cya, cyb
+Mamiellales: mis, ota, olu, cre (these are the only 4 "green algae" genomes in KAAS:  Micromonas commoda, Ostreococcus tauri, Ostreococcus lucimarinus, Chlamydomonas reinhardtii) - makes 40,064 genes
+Conclusive referece used for the mapping of all reads in a transcriptome: eco, rpr, syn, bth, dra, aae, mja, pmi, pmn, pmt, pmb, pme, mja, mfe, mae, afu, hal, tac, mer, pfu, pub, nmr, csy, nga, syw, syc, syd, syg, syx, syp, mis, ota, olu, cre, rsp, ter, det, mmi, amr, mhd
+
