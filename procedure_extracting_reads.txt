@@ -1,0 +1,18 @@
+
+1) Extract reads assigned to a certain taxonomic group using MEGAN. extract reads from FWD and from the REV libraries.
+
+2) Run "uncollapse_fasta_using_lookupTab_v1.py" script to uncollapse fasta of each pair's mate library (R1 and R2 reads). uncollapsed fasta will be used for comparison and fishing of orphan reads.
+* use > $Name_Of_errors_file in the end of the command to recieve all headers that were not found in the lookup table. IT IS NOT EXPECTED TO FIND ANY! 
+* note that the reads are not sorted by running numbers. however- this sohuld not change much for the mating - the only important thing is that the mates will be in the same position in the resulting paired libraries.
+
+3) Run "find_pairs_v1.py" to extract a list of headers of orphan reads (these reads were assigned to the taxon, but thier mate was not assigned. the idea is to get the mate and map later to reference genome using paired endes information. False assignments will be corrected in th following mapping steps). Running script: $python find_pairs_v1.py [fasta_R1.fa] [fasta_R2.fa]. Output: [fasta_R1_orphans.txt] and [fasta_R2_orphans.txt] - two lists of headers of orphan reads.
+
+4) Fish the mates of the orphan sequences from the MATE LIBRARY! using the non-rRNA, non-clustered fasta files. Please run: $python get_reads_from_fasta_v1.py [fasta_Rx_orphans.txt] [fasta_Ry.fa]. output: [fished_mates_for_fasta_Rx.fa]. x and y can be either R1 and R2 or R2 and R1.
+
+5) Concatenate the uncollapsed files with the fished fasta files. Note that the fished fasta files will be concatenated with their corresponding files! if you fish for the R1 orphans, you get the mates of R1 from R2 and this file should be concatenated with R2 and not R1. this is a little confusing, so here is an example: $cat fasta_R1_uncollasped.fa fished_mates_for_fasta_R2.fa > complete_fasta_with_mates_of_orphans_R1.fa.   second concatenation: $cat fasta_R2_uncollasped.fa fished_mates_for_fasta_R1.fa > complete_fasta_with_mates_of_orphans_R2.fa 
+
+6) count sequences in both resulting files! you should have the same number of sequences! (you can count lines with wc -l or count ">" signs using grep -c. expect twice as many lines as ">")
+
+7) sort complete fasta files so that the pairs will get the same position in both files. this is often the requirement when using paired ends libraries for mapping. run: $python sort_mates_v1.py [complete_fasta_with_mates_of_orphans_R1.fa] [complete_fasta_with_mates_of_orphans_R2.fa]. output: [complete_fasta_with_mates_of_orphans_R1_sorted.fa] [complete_fasta_with_mates_of_orphans_R2_sorted.fa]
+
+ Map to reference genome (Reverse complement R2 reads?)
