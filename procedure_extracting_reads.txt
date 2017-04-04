@@ -1,9 +1,11 @@
 
 1) Extract reads assigned to a certain taxonomic group using MEGAN. extract reads from FWD and from the REV libraries.
 
+#note! this procedure requires collapsed sequences (the usage of 100% clusters is not possible since the original headers are often hidden in the cluster and they are used to find the mate reads). if you have 100% clusters - you will need to uncollapse them (step 2 here). if your reads are non-clustered reads skip step 2.
+
 2) Run "uncollapse_fasta_using_lookupTab_v1.py" script to uncollapse fasta of each pair's mate library (R1 and R2 reads). uncollapsed fasta will be used for comparison and fishing of orphan reads.
 * use > $Name_Of_errors_file in the end of the command to recieve all headers that were not found in the lookup table. IT IS NOT EXPECTED TO FIND ANY! 
-* note that the reads are not sorted by running numbers. however- this sohuld not change much for the mating - the only important thing is that the mates will be in the same position in the resulting paired libraries.
+* note that the reads are not sorted by running numbers. however- this sohuld not change much for the mating - the only important thing is that the mates will be in the same position in the resulting paired libraries (which will be taken care of in the last step of the pipeline)
 
 3) Run "find_pairs_v1.py" to extract a list of headers of orphan reads (these reads were assigned to the taxon, but thier mate was not assigned. the idea is to get the mate and map later to reference genome using paired endes information. False assignments will be corrected in th following mapping steps). Running script: $python find_pairs_v1.py [fasta_R1.fa] [fasta_R2.fa]. Output: [fasta_R1_orphans.txt] and [fasta_R2_orphans.txt] - two lists of headers of orphan reads.
 
