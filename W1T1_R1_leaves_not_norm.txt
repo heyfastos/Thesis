@@ -1,0 +1,146 @@
+Total	18485331
+Actinobacteria <phylum>	22589
+Aquificae <phylum>	1544
+Armatimonadetes	184
+Bacteroidetes Order II. Incertae sedis	322
+Bacteroidia	2900
+Cytophagia	11707
+environmental samples <Bacteroidetes>	211
+Flavobacteriia	65964
+Sphingobacteriia	5356
+unclassified Bacteroidetes	5
+Chlorobi	1201
+Ignavibacteriae	1331
+Caldiserica	86
+Chlamydiae/Verrucomicrobia group	55085
+Chloroflexi	1663
+Chrysiogenetes <phylum>	133
+environmental samples <Cyanobacteria>	252
+Gloeobacteria	120
+Nostocales	2908
+Acaryochloris	195
+Candidatus Atelocyanobacterium	166
+Chamaesiphon	169
+Cyanobacterium	281
+Cyanobium	361
+Cyanothece	919
+Dactylococcopsis	306
+environmental samples <Chroococcales>	41
+Gloeocapsa	204
+Halothece cluster	272
+Microcystis	138
+Synechococcus	55769
+Synechocystis	80
+Thermosynechococcus	69
+Oscillatoriales	1813
+Pleurocapsales	705
+Prochlorales	5238
+Stigonematales	13
+unclassified Cyanobacteria	60
+Deferribacteres <phylum>	1661
+Deinococcus-Thermus	604
+Dictyoglomi	374
+Elusimicrobia	109
+environmental samples <Bacteria>	118746
+Fibrobacteres/Acidobacteria group	1569
+Firmicutes	22216
+Fusobacteria	1453
+Gemmatimonadetes	313
+Nitrospinae	6
+Nitrospirae	708
+Planctomycetes	16164
+Caulobacterales	1803
+environmental samples <alpha subdivision>	2600
+Magnetococcales	407
+Parvularculales	417
+Rhizobiales	20510
+Rhodobacterales	39244
+Rhodospirillales	10052
+Rickettsiales	8770
+Sphingomonadales	5287
+Candidatus Phaeomarinobacter	4066
+Micavibrio	468
+Polymorphum	997
+SAR11 cluster	827558
+SAR116 cluster	58511
+Tuberoidobacter	839
+unclassified Alphaproteobacteria (miscellaneous)	26
+Betaproteobacteria	21005
+delta/epsilon subdivisions	17138
+environmental samples <Proteobacteria>	6915
+Acidithiobacillales	183
+Aeromonadales	1226
+Alteromonadales	37488
+Cardiobacteriales	119
+Chromatiales	6160
+Enterobacteriales	9496
+environmental samples <gamma proteobacteria>	24510
+Legionellales	3233
+Methylococcales	1266
+Oceanospirillales	14031
+Orbales	1077
+Pasteurellales	1477
+Pseudomonadales	11708
+Thiotrichales	6388
+Candidatus Baumannia	146
+Candidatus Steffania	15
+OMG group	59
+SAR86 cluster	17709
+Simiduia	3142
+sulfur-oxidizing symbionts	1204
+Thiolapillus	614
+unclassified Gammaproteobacteria (miscellaneous)	1759
+Vibrionales	16396
+Xanthomonadales	2044
+unclassified Proteobacteria	9
+Spirochaetes	716623
+Synergistetes	232
+Tenericutes	2111
+Thermodesulfobacteria <phylum>	829
+Thermotogae <phylum>	1674
+unclassified Bacteria	1194
+Crenarchaeota	418
+environmental samples <Archaea>	95
+Euryarchaeota	7216
+Thaumarchaeota	2867
+unclassified Archaea	52
+Alveolata	18465
+Amoebozoa	7839
+Apusozoa	32
+Centroheliozoa	8
+Cryptophyta	2465
+environmental samples <Eukaryotae>	52
+Euglenozoa	1908
+Fornicata	28
+Glaucocystophyceae	71
+Haptophyceae	23603
+Heterolobosea	883
+Jakobida	177
+Katablepharidophyta	18
+Malawimonadidae	44
+Opisthokonta	245348
+Parabasalia	722
+Rhizaria	1357
+Rhodophyta	1086
+Stramenopiles	17814
+unclassified eukaryotes	132
+Chlorodendrophyceae	13
+Chlorophyceae	2946
+Chlorophyta incertae sedis	18
+Pedinophyceae	10
+prasinophytes	2930
+Trebouxiophyceae	1434
+Ulvophyceae	61
+Streptophyta	24887
+dsDNA viruses, no RNA stage	37005
+dsRNA viruses	6
+environmental samples <viruses>	25520
+Retro-transcribing viruses	22
+Satellites	9
+ssDNA viruses	44
+ssRNA viruses	421
+unassigned viruses	207
+unclassified phages	476
+unclassified virophages	18
+environmental samples <unclassified>	360713
+artificial sequences	747
