@@ -8,7 +8,7 @@ ID and its sequence will be extracted and written into an output fasta.
 The TAB file must contain the headers the user wants to extract in the first column. a single column is allowed.
 
 IMPORTANT!
-This script was wrotten to extract mate reads of orphan reads. this means that reads must be fished from the MATE fasta
+This script was wrןtten to extract mate reads of orphan reads. this means that reads must be fished from the MATE fasta
 file (if orphans are from R1, use the fasta of R2)
 
 Synopsis:
