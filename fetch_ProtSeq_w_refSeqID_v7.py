@@ -6,7 +6,7 @@ import os
 
 '''
 Script will select only best hit (if exceeding threshold  - line 61) and fetch its protein sequence from NCBI. 
-the difference to the previous versions is that this pne will include weights for each protID in the output files, in
+the difference to the previous versions is that this one will include weights for each protID in the output files, in
 case the specific protein is the hit of more than one query in the fasta file used to produce the tab file handled here
 Version 6 will take weights (in the headers) into account and will add them to the final weights in the output.
 Version 7 will print the number of protein IDs that were not fetched from NCBI (I saw many of them, that I was able to 
