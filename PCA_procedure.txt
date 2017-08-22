@@ -1,0 +1,20 @@
+This file will specify the steps performed in order to establish the PCA analysis in chater3 of my thesis.
+
+1) Use MEGAN to analyze all rma files: uncollapse tree at genus level and extract all summarized reads for all leaves.
+Make sure that: 
+	a) The ames of output tables contain the time point specification with T-1, T1, T3, T6 and T10 included in the file 
+	   names of the respective time points. 
+	b) Each table contains the total nr of reads in the sample for rpm calculation. This is given for each table in the first 
+	   row like this: Total (\t) #_OF_READS
+
+2) Create 4 folders - one for each treatment. Place only the tables relevant for each treatment. include C_T-1 and W_T-1 
+in both their own folders and the OA and GH folders (which have no T-1 samples). 
+
+3) Run "merge_PCA_tabs_Level1_V1.py" on each folder. Make sure the script is NOT in the folder!. Important - names of output 
+tables are user defined - make sure to include C, W, OA and GH in the names for the next step.
+
+4) Place all merged tables in a new folder for the scond merging step and run "PCA_merging_lev2.py". 
+This time the script can be placed in the same folder as the tables.
+
+5) Use merged table for PCA analysis using the R packeges "FactoMineR" and "factoextra" (http://www.sthda.com/english/wiki/factominer-and-factoextra-principal-component-analysis-visualization-r-software-and-data-mining).
+The R script used for analysis and visualization is uploaded in this github respiratory.
