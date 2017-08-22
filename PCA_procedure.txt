@@ -19,3 +19,4 @@ This time the script can be placed in the same folder as the tables.
 5) Use merged table for PCA analysis using the R packeges "FactoMineR" and "factoextra" (http://www.sthda.com/english/wiki/factominer-and-factoextra-principal-component-analysis-visualization-r-software-and-data-mining).
 The R script used for analysis and visualization is uploaded in this github respiratory. 
 The delimiter of the input table for the R script needs to be changed to coma instead of tab.
+Make sure you have R > 3.2 installed on your system to run this code.
