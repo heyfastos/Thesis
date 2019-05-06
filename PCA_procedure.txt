@@ -1,8 +1,8 @@
-This file will specify the steps performed in order to establish the PCA analysis in chater3 of my thesis.
+This file will specify the steps performed in order to establish the PCA analysis in chapter3 of my thesis.
 
 1) Use MEGAN to analyze all rma files: uncollapse tree at genus level and extract all summarized reads for all leaves.
 Make sure that: 
-	a) The ames of output tables contain the time point specification with T-1, T1, T3, T6 and T10 included in the file 
+	a) The names of output tables contain the time point specification with T-1, T1, T3, T6 and T10 included in the file 
 	   names of the respective time points. 
 	b) Each table contains the total nr of reads in the sample for rpm calculation. This is given for each table in the first 
 	   row like this: Total (\t) #_OF_READS
@@ -17,6 +17,6 @@ tables are user defined - make sure to include C, W, OA and GH in the names for 
 This time the script can be placed in the same folder as the tables.
 
 5) Use merged table for PCA analysis using the R packeges "FactoMineR" and "factoextra" (http://www.sthda.com/english/wiki/factominer-and-factoextra-principal-component-analysis-visualization-r-software-and-data-mining).
-The R script used for analysis and visualization is uploaded in this github respiratory. 
+The R script used for analysis and visualization is uploaded in this github repository. 
 The delimiter of the input table for the R script needs to be changed to coma instead of tab.
 Make sure you have R > 3.2 installed on your system to run this code.
